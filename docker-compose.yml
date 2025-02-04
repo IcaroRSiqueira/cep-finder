@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  web:
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+    working_dir: /app
+    build:
+      context: .
+    entrypoint: "sh docker-entrypoint.sh"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/cep_finder_dev"
+    command: bin/rails s -b 0.0.0.0 -p 3001
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:17.2
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USERNAME: "postgres"
