@@ -1,0 +1,11 @@
+<div class="cointainer mx-auto">
+  <h1 class="font-bold text-6xl text-blue-500">Busca por CEP</h1>
+  <form action="/" class="flex w-full max-w-sm items-center justify-center gap-2 mt-10">
+    <%= simple_form_for :cep, builder: TailwindFormBuilder, url: root_path do |f| %>
+      <div class="relative w-full">
+        <%= f.text_field :number, placeholder: "12345.678" %>
+      </div>
+      <%= f.submit "Buscar" %>
+    <% end %>
+  </form>
+</div>
