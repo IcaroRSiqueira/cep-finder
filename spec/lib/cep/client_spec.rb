@@ -73,7 +73,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { '66635-0871' }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "Invalid CEP: #{cep_number}")
+          expect { subject }.to raise_error(Cep::Exception, "CEP inválido: #{cep_number}")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
@@ -84,7 +84,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { '66635-08' }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "Invalid CEP: #{cep_number}")
+          expect { subject }.to raise_error(Cep::Exception, "CEP inválido: #{cep_number}")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
@@ -95,7 +95,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { '666-35087' }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "Invalid CEP: #{cep_number}")
+          expect { subject }.to raise_error(Cep::Exception, "CEP inválido: #{cep_number}")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
@@ -106,7 +106,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { '66635-ABC' }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "Invalid CEP: #{cep_number}")
+          expect { subject }.to raise_error(Cep::Exception, "CEP inválido: #{cep_number}")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
@@ -117,7 +117,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { nil }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "CEP must be present")
+          expect { subject }.to raise_error(Cep::Exception, "CEP precisa ser preenchido")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
@@ -141,7 +141,7 @@ RSpec.describe Cep::Client do
         end
 
         it 'raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, response_body.to_json)
+          expect { subject }.to raise_error(Cep::Exception, "O CEP 66635081 nao foi encontrado")
         end
       end
 
@@ -155,7 +155,7 @@ RSpec.describe Cep::Client do
         end
 
         it 'raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, response_body.to_json)
+          expect { subject }.to raise_error(Cep::Exception, "Internal Server Error")
         end
       end
     end
