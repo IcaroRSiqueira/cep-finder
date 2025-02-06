@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CepSearch, type: :model do
   describe 'ActiveRecord' do
     context 'Validations' do
-      it { is_expected.to validate_uniqueness_of(:number) }
+      it { is_expected.to validate_uniqueness_of(:number).case_insensitive }
     end
     context 'Database columns/indexes' do
       it { is_expected.to have_db_column(:number).of_type(:string) }
