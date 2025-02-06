@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  web:
+  web: &web
     ports:
       - 3001:3001
     depends_on:
@@ -22,3 +22,10 @@ services:
     environment:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_USERNAME: "postgres"
+  tests:
+    <<: *web
+    command: bundle exec rspec
+    ports: []
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/cep_finder_test"
+    profiles: ['tests']
