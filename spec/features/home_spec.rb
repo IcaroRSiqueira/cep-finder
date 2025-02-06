@@ -113,5 +113,13 @@ describe 'visiting home page', type: :feature do
         expect(page).not_to have_content '53620-378'
       end
     end
+
+    context 'and no search has been done' do
+      it 'shows empty searches message' do
+        visit '/'
+
+        expect(page).to have_content 'Nenhuma busca realizada', count: 2
+      end
+    end
   end
 end

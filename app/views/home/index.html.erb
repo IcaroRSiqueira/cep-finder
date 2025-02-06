@@ -29,8 +29,12 @@
     <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs m-5 ">
       <div class="w-full h-max rounded px-3.5 py-2.5">
         <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">CEPs mais buscados:</h6>
-        <% @most_searched_ceps.each_with_index do |address_info, index| %>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{index + 1} - #{address_info.number}" %></p>
+        <% if @most_searched_ceps.empty? %>
+          <p class="font-sans antialiased text-base my-1 text-stone-400 mt-3"><%= 'Nenhuma busca realizada' %></p>
+        <%else%>
+          <% @most_searched_ceps.each_with_index do |address_info, index| %>
+            <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{index + 1} - #{address_info.number}" %></p>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -38,8 +42,12 @@
     <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs m-5">
       <div class="w-full h-max rounded px-3.5 py-2.5">
         <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Mais buscados por estado:</h6>
-        <% @most_searched_ceps_from_each_state.each do |address_info| %>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{address_info.uf} - #{address_info.number}" %></p>
+        <% if @most_searched_ceps_from_each_state.empty? %>
+          <p class="font-sans antialiased text-base my-1 text-stone-400 mt-3"><%= 'Nenhuma busca realizada' %></p>
+        <% else %>
+          <% @most_searched_ceps_from_each_state.each do |address_info| %>
+            <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{address_info.uf} - #{address_info.number}" %></p>
+          <% end %>
         <% end %>
       </div>
     </div>
