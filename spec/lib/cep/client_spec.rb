@@ -50,6 +50,42 @@ RSpec.describe Cep::Client do
         it 'returns response body' do
           expect(subject).to eq(response_body)
         end
+
+        context 'when cep wasnt searched yet' do
+          it 'creates new cep searched register' do
+            expect { subject }.to change { CepSearch.count }.by(1)
+          end
+
+          it 'registers information correctly' do
+            subject
+
+            created_cep_search = CepSearch.last
+
+            expect(created_cep_search.number).to eq('66635-087')
+            expect(created_cep_search.uf).to eq('PA')
+            expect(created_cep_search.count).to eq(1)
+          end
+        end
+
+        context 'when cep search already exists' do
+          before do
+            create(:cep_search, number: '66635-087', uf: 'PA', count: 3)
+          end
+
+          it 'does not create a new cep searched register' do
+            expect { subject }.not_to change { CepSearch.count }
+          end
+
+          it 'updates count information correctly' do
+            subject
+
+            created_cep_search = CepSearch.last.reload
+
+            expect(created_cep_search.number).to eq('66635-087')
+            expect(created_cep_search.uf).to eq('PA')
+            expect(created_cep_search.count).to eq(4)
+          end
+        end
       end
 
       context 'and is provided only numbers' do
@@ -63,6 +99,10 @@ RSpec.describe Cep::Client do
 
         it 'returns response body' do
           expect(subject).to eq(response_body)
+        end
+
+        it 'creates new cep searched register' do
+          expect { subject }.to change { CepSearch.count }.by(1)
         end
       end
     end

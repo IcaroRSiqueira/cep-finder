@@ -25,6 +25,7 @@ group :development, :test do
   gem "rubocop-rails"
   gem "rubocop-rails-omakase", require: false
   gem "rubocop-rspec"
+  gem "shoulda-matchers", "~> 6.4"
 end
 
 group :test do

@@ -9,7 +9,9 @@ module Cep
         response = get_request("/json/#{cep_number}")
         raise_error(JSON(response.body)["message"], response.status) unless response&.status == 200
 
-        JSON.parse(response.body, symbolize_names: true)
+        parsed_response = JSON.parse(response.body, symbolize_names: true)
+        register_searched_information(cep_number, parsed_response[:state])
+        parsed_response
       end
 
       private
@@ -35,6 +37,13 @@ module Cep
 
       def raise_error(message, status)
         raise Cep::Exception.new(message, status)
+      end
+
+      def register_searched_information(cep_number, state)
+        CepSearch.find_or_initialize_by(number: cep_number, uf: state).tap do |cep_search|
+          cep_search.increment!(:count)
+          cep_search.save
+        end
       end
     end
   end
