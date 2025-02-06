@@ -1,6 +1,6 @@
 <div class="cointainer mx-auto">
-  <h1 class="font-bold text-6xl text-blue-500">Busca por CEP</h1>
-  <form action="/" class="flex w-full max-w-sm items-center justify-center gap-2 mt-10">
+  <h1 class="flex items-center justify-center font-bold text-6xl text-blue-500 mt-5">Busca por CEP</h1>
+  <form action="/" class="flex w-full items-center justify-center gap-2 mt-10">
     <%= simple_form_for :cep, builder: TailwindFormBuilder, url: root_path do |f| %>
       <div class="relative w-full">
         <%= f.text_field :number, placeholder: "00000-000", maxlength: 9 %>
@@ -12,9 +12,9 @@
     <% end %>
   </form>
   <% if @address_info.present? %>
-    <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs mt-10">
+    <div class="flex justify-center max-w-lg flex-col mx-auto text-center w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 mt-10">
       <div class="w-full h-max rounded px-3.5 py-2.5">
-        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço</h6>
+        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço:</h6>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info&.dig(:cep)}" %></p>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Endereço: #{@address_info&.dig(:address)}" %></p>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Bairro: #{@address_info&.dig(:district)}" %></p>
@@ -24,5 +24,18 @@
       </div>
     </div>
   <% end %>
+  <div class="flex items-stretch">
+    <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs m-5 ">
+      <div class="w-full h-max rounded px-3.5 py-2.5">
+        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">CEPs mais buscados:</h6>
+      </div>
+    </div>
+
+    <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs m-5">
+      <div class="w-full h-max rounded px-3.5 py-2.5">
+        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Mais buscados por estado:</h6>
+      </div>
+    </div>
+  </div>
 </div>
 
