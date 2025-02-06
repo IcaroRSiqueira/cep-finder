@@ -1,7 +1,7 @@
 <div class="cointainer mx-auto">
   <h1 class="flex items-center justify-center font-bold text-6xl text-blue-500 mt-5">Busca por CEP</h1>
   <form action="/" class="flex w-full items-center justify-center gap-2 mt-10">
-    <%= simple_form_for :cep, builder: TailwindFormBuilder, url: root_path, html: { autocomplete: 'off' } do |f| %>
+    <%= simple_form_for :cep, builder: TailwindFormBuilder, url: '/', html: { autocomplete: 'off' } do |f| %>
       <div class="relative w-full">
         <%= f.text_field :number, placeholder: "00000-000", maxlength: 9 %>
       </div>

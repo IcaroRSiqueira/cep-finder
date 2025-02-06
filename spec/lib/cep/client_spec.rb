@@ -8,13 +8,6 @@ RSpec.describe Cep::Client do
       "https://cep.awesomeapi.com.br/json/#{normalized_cep_number}"
     end
 
-    let(:response_double) do
-      double('Faraday::Response', body: response_body.to_json, status: 200)
-    end
-
-    let(:connection_double) do
-      let(double)
-    end
     let(:normalized_cep_number) { '66635-087' }
 
     let(:response_body) do

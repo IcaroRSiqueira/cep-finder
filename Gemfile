@@ -15,6 +15,7 @@ gem "thruster", require: false
 group :development, :test do
   gem "brakeman", require: false
   gem "byebug"
+  gem "capybara", "~> 3.40"
   gem "factory_bot_rails"
   gem "pry"
   gem "pry-byebug"
