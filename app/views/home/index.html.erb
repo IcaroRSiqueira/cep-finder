@@ -3,7 +3,7 @@
   <form action="/" class="flex w-full max-w-sm items-center justify-center gap-2 mt-10">
     <%= simple_form_for :cep, builder: TailwindFormBuilder, url: root_path do |f| %>
       <div class="relative w-full">
-        <%= f.text_field :number, placeholder: "12345-678" %>
+        <%= f.text_field :number, placeholder: "00000-000", maxlength: 9 %>
       </div>
       <%= f.submit "Buscar" %>
     <% end %>
@@ -11,19 +11,18 @@
       <small class="font-sans antialiased text-sm text-red-500 mt-1 block"><%= @error_message %></small>
     <% end %>
   </form>
-
-    <% if @address_info.present? %>
-      <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs mt-10">
-        <div class="w-full h-max rounded px-3.5 py-2.5">
-          <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço</h6>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info[:cep]}" %></p>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Endereço: #{@address_info[:address]}" %></p>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Bairro: #{@address_info[:district]}" %></p>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Cidade: #{@address_info[:city]}" %></p>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Estado: #{@address_info[:state]}" %></p>
-          <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "DDD: #{@address_info[:ddd]}" %></p>
-        </div>
+  <% if @address_info.present? %>
+    <div class="w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-xs mt-10">
+      <div class="w-full h-max rounded px-3.5 py-2.5">
+        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço</h6>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info&.dig(:cep)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Endereço: #{@address_info&.dig(:address)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Bairro: #{@address_info&.dig(:district)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Cidade: #{@address_info&.dig(:city)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Estado: #{@address_info&.dig(:state)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "DDD: #{@address_info&.dig(:ddd)}" %></p>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 </div>
 
