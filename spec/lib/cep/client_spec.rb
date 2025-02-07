@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Cep::Client do
   describe '.address_info_by_cep' do
-    subject { described_class.address_info_by_cep(cep_number) }
+    subject { described_class.address_info_by_cep(cep_number: cep_number) }
 
     let(:request_url) do
       "https://cep.awesomeapi.com.br/json/#{normalized_cep_number}"
@@ -113,6 +113,24 @@ RSpec.describe Cep::Client do
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end
+
+        context 'and update_count param is passed as false' do
+          subject { described_class.address_info_by_cep(cep_number: cep_number, update_count: false) }
+
+        it 'returns cep information without updating count' do
+          expect(subject[:count]).to eq(1)
+        end
+
+        it 'does not create a new cep searched register' do
+          expect { subject }.not_to change { CepSearch.count }
+        end
+
+        it 'does not make cep api request' do
+          subject
+
+          expect(a_request(:get, request_url)).not_to have_been_made
+        end
+        end
       end
     end
 
@@ -166,7 +184,7 @@ RSpec.describe Cep::Client do
         let(:normalized_cep_number) { nil }
 
         it 'does not call cep api and raises an error' do
-          expect { subject }.to raise_error(Cep::Exception, "CEP precisa ser preenchido")
+          expect { subject }.to raise_error(Cep::Exception, "Forneça um CEP válido")
 
           expect(a_request(:get, request_url)).not_to have_been_made
         end

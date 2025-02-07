@@ -2,10 +2,10 @@ module Cep
   class Client
     CLIENT_API_BASE_URL = "https://cep.awesomeapi.com.br"
     class << self
-      def address_info_by_cep(cep_number)
-        raise_error("CEP precisa ser preenchido", :unprocessable_entity) unless cep_number.present?
+      def address_info_by_cep(cep_number:, update_count: true)
+        raise_error("Forneça um CEP válido", :unprocessable_entity) unless cep_number.present?
         normalize_cep(cep_number) unless cep_formatted?(cep_number)
-        return existing_address_info(cep_number) if existing_cep_search(cep_number).present?
+        return existing_address_info(cep_number, update_count) if existing_cep_search(cep_number).present?
 
         response = get_request("/json/#{cep_number}")
         created_cep_search = register_searched_information(cep_number, response)
@@ -52,9 +52,10 @@ module Cep
         )
       end
 
-      def existing_address_info(cep_number)
+      def existing_address_info(cep_number, update_count)
         cep_search = existing_cep_search(cep_number)
-        cep_search.increment!(:count)
+        cep_search.increment!(:count) if update_count
+
         cep_search.default_attributes
       end
 

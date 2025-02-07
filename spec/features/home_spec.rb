@@ -31,7 +31,7 @@ describe 'visiting home page', type: :feature do
     context 'and cep provided is correct' do
       it 'returns address info correctly' do
         visit '/'
-        fill_in 'cep_number', with: '66635-087'
+        fill_in 'cep_input', with: '66635-087'
         click_on 'Buscar'
         expect(page).to have_content 'CEP: 66635-087'
         expect(page).to have_content 'Endereço: Quadra Doze'
@@ -45,7 +45,7 @@ describe 'visiting home page', type: :feature do
     context 'and cep is invalid' do
       it 'returns error message' do
         visit '/'
-        fill_in 'cep_number', with: 'INVALIDO'
+        fill_in 'cep_input', with: 'INVALIDO'
         click_on 'Buscar'
         expect(page).to have_content 'CEP inválido: INVALIDO'
       end
@@ -67,7 +67,7 @@ describe 'visiting home page', type: :feature do
 
       it 'returns error message' do
         visit '/'
-        fill_in 'cep_number', with: '00000-000'
+        fill_in 'cep_input', with: '00000-000'
         click_on 'Buscar'
         expect(page).to have_content 'O CEP 00000-000 nao foi encontrado'
       end
@@ -90,11 +90,11 @@ describe 'visiting home page', type: :feature do
       it 'shows the first 5 most searched ceps ranked' do
         visit '/'
 
-        expect(page).to have_content '1 - 09841-280'
-        expect(page).to have_content '2 - 22713-080'
-        expect(page).to have_content '3 - 55038-100'
-        expect(page).to have_content '4 - 66635-087'
-        expect(page).to have_content '5 - 59547-970'
+        expect(page).to have_content '1 - 09841-280 - total: 15'
+        expect(page).to have_content '2 - 22713-080 - total: 8'
+        expect(page).to have_content '3 - 55038-100 - total: 6'
+        expect(page).to have_content '4 - 66635-087 - total: 5'
+        expect(page).to have_content '5 - 59547-970 - total: 3'
         expect(page).not_to have_content '25550-350'
         expect(page).not_to have_content '13272-006'
         expect(page).not_to have_content '53620-378'

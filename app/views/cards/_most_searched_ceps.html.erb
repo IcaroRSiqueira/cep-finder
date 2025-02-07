@@ -5,7 +5,7 @@
       <p class="mt-3"><%= 'Nenhuma busca realizada' %></p>
     <% else %>
       <% @most_searched_ceps.each_with_index do |address_info, index| %>
-        <p><%= "#{index + 1} - #{address_info.number}" %></p>
+        <p><%= "#{index + 1} - #{address_info.number}  - total: #{address_info.count}" %></p>
       <% end %>
     <% end %>
   </div>

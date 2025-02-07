@@ -1,12 +1,11 @@
 <div class="cointainer mx-auto">
-  <h1 class="flex items-center justify-center font-bold text-7xl text-primary mt-5">Busca por CEP</h1>
-  <form action="/" class="grid grid-flow-col gap-4 mt-10">
-    <%= simple_form_for :cep, url: '/', html: { autocomplete: 'off' } do |f| %>
+  <h1 class="flex items-center justify-center font-bold text-6xl text-primary">Busca por CEP</h1>
+  <form action="/create" class="grid grid-flow-col gap-4 mt-10">
+    <%= simple_form_for :cep do |f| %>
       <div class="relative w-full">
-        <%= f.text_field :number, placeholder: "00000-000", maxlength: 9, class: "input input-bordered w-150" %>
+        <%= f.text_field :number, placeholder: "00000-000", maxlength: 9, class: "input input-bordered w-150", id: "cep_input"%>
       </div>
-      <%= f.submit "Buscar", class: "btn btn-primary w-30" %>
-      <%= link_to "Limpar", '/', class: "btn btn-base-300 w-30" %>
+      <button class="btn btn-primary w-30" id="cep_submit">Buscar</button>
     <% end %>
     <% if @error_message.present? %>
       <small class="text-error text-base"><%= @error_message %></small>
@@ -21,3 +20,19 @@
   </div>
 </div>
 
+<script type='text/javascript'>
+  $(function() {
+    $(document).on("click", "#cep_submit", function(event){
+      $.ajax('create', {
+        type: 'POST',
+        url: '/create',
+        dataType: 'script',
+        data: {
+          mid: $("#cep_input").val()
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        return console.log("AJAX Error: " + textStatus);
+      }
+    });
+  });
+</script>
