@@ -1,21 +1,21 @@
 <div class="cointainer mx-auto">
-  <h1 class="flex items-center justify-center font-bold text-6xl text-blue-500 mt-5">Busca por CEP</h1>
-  <form action="/" class="flex w-full items-center justify-center gap-2 mt-10">
-    <%= simple_form_for :cep, builder: TailwindFormBuilder, url: '/', html: { autocomplete: 'off' } do |f| %>
+  <h1 class="flex items-center justify-center font-bold text-7xl text-primary mt-5">Busca por CEP</h1>
+  <form action="/" class="grid grid-flow-col gap-4 mt-10">
+    <%= simple_form_for :cep, url: '/', html: { autocomplete: 'off' } do |f| %>
       <div class="relative w-full">
-        <%= f.text_field :number, placeholder: "00000-000", maxlength: 9 %>
+        <%= f.text_field :number, placeholder: "00000-000", maxlength: 9, class: "input input-bordered w-150" %>
       </div>
-      <%= f.submit "Buscar" %>
-      <%= link_to "Limpar", '/', class: "inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm py-2 px-4 shadow-sm hover:shadow-md bg-red-800 hover:bg-red-700 relative bg-gradient-to-b from-red-700 to-red-800 border-red-900 text-stone-50 rounded-lg hover:bg-gradient-to-b hover:from-red-800 hover:to-red-800 hover:border-red-900 after:absolute after:inset-0 after:rounded-[inherit] after:box-shadow after:shadow-[inset_0_1px_0px_rgba(255,255,255,0.25),inset_0_-2px_0px_rgba(0,0,0,0.35)] after:pointer-events-none transition antialiased" %>
+      <%= f.submit "Buscar", class: "btn btn-primary w-30" %>
+      <%= link_to "Limpar", '/', class: "btn btn-base-300 w-30" %>
     <% end %>
     <% if @error_message.present? %>
-      <small class="font-sans antialiased text-sm text-red-500 mt-1 block"><%= @error_message %></small>
+      <small class="text-error text-base"><%= @error_message %></small>
     <% end %>
   </form>
   <% if @address_info.present? %>
     <%= render partial: "cards/searched_cep"%>
   <% end %>
-  <div class="flex items-stretch justify-center text-center">
+  <div class="grid grid-flow-col gap-10">
     <%= render partial: "cards/most_searched_ceps"%>
     <%= render partial: "cards/most_searched_ceps_from_each_state"%>
   </div>

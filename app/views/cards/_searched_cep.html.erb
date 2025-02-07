@@ -1,11 +1,11 @@
-    <div class="flex justify-center max-w-lg flex-col mx-auto text-center w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 mt-10">
-      <div class="w-full h-max rounded px-3.5 py-2.5">
-        <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço:</h6>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info&.dig(:number)}" %></p>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Endereço: #{@address_info&.dig(:address)}" %></p>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Bairro: #{@address_info&.dig(:district)}" %></p>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Cidade: #{@address_info&.dig(:city)}" %></p>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Estado: #{@address_info&.dig(:state)}" %></p>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "DDD: #{@address_info&.dig(:ddd)}" %></p>
-      </div>
-    </div>
+<div class="flex justify-center max-w-lg flex-col mx-auto card bg-primary text-primary-content w-96 mt-10">
+  <div class="card-body">
+    <h2 class="card-title">Informações do endereço:</h2>
+    <p> <%= "CEP: #{@address_info&.dig(:number)}" %> </p>
+    <p> <%= "Endereço: #{@address_info&.dig(:address)}" %> </p>
+    <p> <%= "Bairro: #{@address_info&.dig(:district)}" %> </p>
+    <p> <%= "Cidade: #{@address_info&.dig(:city)}" %> </p>
+    <p> <%= "Estado: #{@address_info&.dig(:state)}" %> </p>
+    <p> <%= "DDD: #{@address_info&.dig(:ddd)}" %> </p>
+  </div>
+</div>
