@@ -16,7 +16,7 @@
     <div class="flex justify-center max-w-lg flex-col mx-auto text-center w-full rounded-lg border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 mt-10">
       <div class="w-full h-max rounded px-3.5 py-2.5">
         <h6 class="font-sans antialiased font-bold text-base md:text-lg lg:text-xl text-current">Informações do endereço:</h6>
-        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info&.dig(:cep)}" %></p>
+        <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "CEP: #{@address_info&.dig(:number)}" %></p>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Endereço: #{@address_info&.dig(:address)}" %></p>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Bairro: #{@address_info&.dig(:district)}" %></p>
         <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "Cidade: #{@address_info&.dig(:city)}" %></p>
@@ -46,7 +46,7 @@
           <p class="font-sans antialiased text-base my-1 text-stone-400 mt-3"><%= 'Nenhuma busca realizada' %></p>
         <% else %>
           <% @most_searched_ceps_from_each_state.each do |address_info| %>
-            <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{address_info.uf} - #{address_info.number}" %></p>
+            <p class="font-sans antialiased text-base my-1 text-stone-600"><%= "#{address_info.state} - #{address_info.number}" %></p>
           <% end %>
         <% end %>
       </div>

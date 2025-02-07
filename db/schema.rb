@@ -16,7 +16,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_152652) do
 
   create_table "cep_searches", force: :cascade do |t|
     t.string "number"
-    t.string "uf"
+    t.string "state"
+    t.string "address"
+    t.string "district"
+    t.string "city"
+    t.string "ddd"
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

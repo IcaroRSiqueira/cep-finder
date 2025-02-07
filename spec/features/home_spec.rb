@@ -33,7 +33,7 @@ describe 'visiting home page', type: :feature do
         visit '/'
         fill_in 'cep_number', with: '66635-087'
         click_on 'Buscar'
-        expect(page).to have_content 'CEP: 66635087'
+        expect(page).to have_content 'CEP: 66635-087'
         expect(page).to have_content 'Endereço: Quadra Doze'
         expect(page).to have_content 'Bairro: Parque Verde'
         expect(page).to have_content 'Cidade: Belém'
@@ -77,14 +77,14 @@ describe 'visiting home page', type: :feature do
   context 'when visualizing most searched ceps info' do
     context 'and there are searched ceps info' do
       before do
-        create(:cep_search, number: '66635-087', uf: 'PA', count: 5)
-        create(:cep_search, number: '55038-100', uf: 'PE', count: 6)
-        create(:cep_search, number: '53620-378', uf: 'PE', count: 2)
-        create(:cep_search, number: '59547-970', uf: 'RN', count: 3)
-        create(:cep_search, number: '22713-080', uf: 'RJ', count: 8)
-        create(:cep_search, number: '09841-280', uf: 'SP', count: 15)
-        create(:cep_search, number: '25550-350', uf: 'SP', count: 2)
-        create(:cep_search, number: '13272-006', uf: 'SP', count: 1)
+        create(:cep_search, number: '66635-087', state: 'PA', count: 5)
+        create(:cep_search, number: '55038-100', state: 'PE', count: 6)
+        create(:cep_search, number: '53620-378', state: 'PE', count: 2)
+        create(:cep_search, number: '59547-970', state: 'RN', count: 3)
+        create(:cep_search, number: '22713-080', state: 'RJ', count: 8)
+        create(:cep_search, number: '09841-280', state: 'SP', count: 15)
+        create(:cep_search, number: '25550-350', state: 'SP', count: 2)
+        create(:cep_search, number: '13272-006', state: 'SP', count: 1)
       end
 
       it 'shows the first 5 most searched ceps ranked' do

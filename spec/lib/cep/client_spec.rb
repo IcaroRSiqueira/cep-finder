@@ -26,76 +26,92 @@ RSpec.describe Cep::Client do
       }
     end
 
+    let(:expected_response) do
+      {
+        number: "66635-087",
+        address: "Quadra Doze",
+        state: "PA",
+        district: "Parque Verde",
+        city: "Belém",
+        ddd: "91",
+        count: 1
+      }
+    end
+
     before do
       stub_request(:get, request_url).to_return(body: response_body.to_json)
     end
 
     context 'when cep is in correct format' do
-      context 'and is provided numbers with hyphen' do
-        let(:cep_number) { '66635-087' }
+      context 'when cep search does not exists' do
+        context 'and is provided numbers with hyphen' do
+          let(:cep_number) { '66635-087' }
 
-        it 'calls cep api with correct params' do
-          subject
+          it 'calls cep api with correct params' do
+            subject
 
-          expect(a_request(:get, request_url)).to have_been_made.once
+            expect(a_request(:get, request_url)).to have_been_made.once
+          end
+
+          it 'returns response body' do
+            expect(subject).to eq(expected_response)
+          end
+
+          context 'when cep wasnt searched yet' do
+            it 'creates new cep searched register' do
+              expect { subject }.to change { CepSearch.count }.by(1)
+            end
+
+            it 'registers information correctly' do
+              subject
+
+              created_cep_search = CepSearch.last
+
+              expect(created_cep_search.number).to eq('66635-087')
+              expect(created_cep_search.state).to eq('PA')
+              expect(created_cep_search.count).to eq(1)
+            end
+          end
         end
 
-        it 'returns response body' do
-          expect(subject).to eq(response_body)
-        end
+        context 'and is provided only numbers' do
+          let(:cep_number) { '66635087' }
 
-        context 'when cep wasnt searched yet' do
+          it 'calls cep api with correct params' do
+            subject
+
+            expect(a_request(:get, request_url)).to have_been_made.once
+          end
+
+          it 'returns response body' do
+            expect(subject).to eq(expected_response)
+          end
+
           it 'creates new cep searched register' do
             expect { subject }.to change { CepSearch.count }.by(1)
-          end
-
-          it 'registers information correctly' do
-            subject
-
-            created_cep_search = CepSearch.last
-
-            expect(created_cep_search.number).to eq('66635-087')
-            expect(created_cep_search.uf).to eq('PA')
-            expect(created_cep_search.count).to eq(1)
-          end
-        end
-
-        context 'when cep search already exists' do
-          before do
-            create(:cep_search, number: '66635-087', uf: 'PA', count: 3)
-          end
-
-          it 'does not create a new cep searched register' do
-            expect { subject }.not_to change { CepSearch.count }
-          end
-
-          it 'updates count information correctly' do
-            subject
-
-            created_cep_search = CepSearch.last.reload
-
-            expect(created_cep_search.number).to eq('66635-087')
-            expect(created_cep_search.uf).to eq('PA')
-            expect(created_cep_search.count).to eq(4)
           end
         end
       end
 
-      context 'and is provided only numbers' do
-        let(:cep_number) { '66635087' }
+      context 'when cep search already exists' do
+        let(:cep_number) { '66635-087' }
 
-        it 'calls cep api with correct params' do
+        before do
+          create(:cep_search, number: "66635-087", address: "Quadra Doze", state: "PA", district: "Parque Verde", city: "Belém", ddd: "91", count: 1)
+        end
+
+        it 'returns cep information with updated count information' do
+          expect(subject[:count]).to eq(2)
+        end
+
+        it 'does not create a new cep searched register' do
+          expect { subject }.not_to change { CepSearch.count }
+        end
+
+        it 'does not make cep api request' do
           subject
 
-          expect(a_request(:get, request_url)).to have_been_made.once
-        end
-
-        it 'returns response body' do
-          expect(subject).to eq(response_body)
-        end
-
-        it 'creates new cep searched register' do
-          expect { subject }.to change { CepSearch.count }.by(1)
+          expect(a_request(:get, request_url)).not_to have_been_made
         end
       end
     end

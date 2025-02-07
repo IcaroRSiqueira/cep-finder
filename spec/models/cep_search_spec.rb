@@ -7,7 +7,7 @@ RSpec.describe CepSearch, type: :model do
     end
     context 'Database columns/indexes' do
       it { is_expected.to have_db_column(:number).of_type(:string) }
-      it { is_expected.to have_db_column(:uf).of_type(:string) }
+      it { is_expected.to have_db_column(:state).of_type(:string) }
       it { is_expected.to have_db_column(:count).of_type(:integer) }
     end
   end

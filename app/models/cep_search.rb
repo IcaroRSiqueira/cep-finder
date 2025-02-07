@@ -3,6 +3,10 @@ class CepSearch < ApplicationRecord
 
   scope :most_searched_ceps, -> { order(count: :asc).last(5).reverse }
   scope :most_searched_ceps_from_each_state, -> {
-    pluck(:uf).uniq.map { |uf| CepSearch.where(uf: uf).order(count: :asc).last }
+    pluck(:state).uniq.map { |state| CepSearch.where(state: state).order(count: :asc).last }
   }
+
+  def default_attributes
+    attributes.symbolize_keys.except(:id, :created_at, :updated_at)
+  end
 end
