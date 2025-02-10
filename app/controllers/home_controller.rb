@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     @address_info = set_address_info(update_count: false) if params.dig(:cep, :number).present?
     @error_message = params[:error_message]
-  rescue Cep::Exception => e
+  rescue CepService::Exception => e
     @error_message = e.message
   end
 
@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     @address_info = set_address_info(update_count: true)
 
     redirect_to action: "index", cep: { number: params.dig(:cep, :number) }
-  rescue Cep::Exception => e
+  rescue CepService::Exception => e
     redirect_to action: "index", error_message: e.message
   end
 
@@ -24,6 +24,9 @@ class HomeController < ApplicationController
   end
 
   def set_address_info(update_count:)
-    Cep::Client.address_info_by_cep(cep_number: params[:cep][:number],  update_count: update_count)
+    CepService::Finder.find_address_info_by_cep(
+      cep_number: params[:cep][:number],
+      update_count: update_count
+    )
   end
 end

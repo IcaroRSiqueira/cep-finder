@@ -1,25 +1,17 @@
-module Cep
-  class Client
-    CLIENT_API_BASE_URL = "https://cep.awesomeapi.com.br"
+module CepService
+  class Finder
     class << self
-      def address_info_by_cep(cep_number:, update_count: true)
+      def find_address_info_by_cep(cep_number:, update_count: true)
         raise_error("Forneça um CEP válido", :unprocessable_entity) unless cep_number.present?
         normalize_cep(cep_number) unless cep_formatted?(cep_number)
         return existing_address_info(cep_number, update_count) if existing_cep_search(cep_number).present?
 
-        response = get_request("/json/#{cep_number}")
+        response = ExternalClient.get_address_info_by_cep(cep_number)
         created_cep_search = register_searched_information(cep_number, response)
         created_cep_search.default_attributes
       end
 
       private
-
-      def get_request(path)
-        response = Faraday.get("#{CLIENT_API_BASE_URL}#{path}")
-        raise_error(JSON(response.body)["message"], response.status) unless response&.status == 200
-
-        JSON.parse(response.body, symbolize_names: true)
-      end
 
       def normalize_cep(cep_number)
         cep_number.insert(-4, "-") if cep_with_only_digits?(cep_number)
@@ -37,7 +29,7 @@ module Cep
       end
 
       def raise_error(message, status)
-        raise Cep::Exception.new(message, status)
+        raise CepService::Exception.new(message, status)
       end
 
       def register_searched_information(cep_number, response)

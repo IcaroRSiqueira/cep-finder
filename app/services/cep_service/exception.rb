@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Cep
+module CepService
   class Exception < StandardError
     def initialize(message, status)
       super(message)
