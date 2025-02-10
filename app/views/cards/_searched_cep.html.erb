@@ -3,12 +3,12 @@
     <div class="card-actions justify-end">
       <%= link_to "✖️", '/', class: "btn btn-square btn-sm" %>
     </div>
-    <h2 class="card-title">Informações do endereço:</h2>
-    <p> <%= "CEP: #{@address_info&.dig(:number)}" %> </p>
-    <p> <%= "Endereço: #{@address_info&.dig(:address)}" %> </p>
-    <p> <%= "Bairro: #{@address_info&.dig(:district)}" %> </p>
-    <p> <%= "Cidade: #{@address_info&.dig(:city)}" %> </p>
-    <p> <%= "Estado: #{@address_info&.dig(:state)}" %> </p>
-    <p> <%= "DDD: #{@address_info&.dig(:ddd)}" %> </p>
+    <h2 class="card-title"><%= t(:title, scope: [:searched_cep_card]) %></h2>
+    <p> <%= "#{t(:cep, scope: [:searched_cep_card])} #{@address_info&.dig(:number)}" %> </p>
+    <p> <%= "#{t(:address, scope: [:searched_cep_card])} #{@address_info&.dig(:address)}" %> </p>
+    <p> <%= "#{t(:district, scope: [:searched_cep_card])} #{@address_info&.dig(:district)}" %> </p>
+    <p> <%= "#{t(:city, scope: [:searched_cep_card])} #{@address_info&.dig(:city)}" %> </p>
+    <p> <%= "#{t(:state, scope: [:searched_cep_card])} #{@address_info&.dig(:state)}" %> </p>
+    <p> <%= "#{t(:ddd, scope: [:searched_cep_card])} #{@address_info&.dig(:ddd)}" %> </p>
   </div>
 </div>

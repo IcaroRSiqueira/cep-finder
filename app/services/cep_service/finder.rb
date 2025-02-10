@@ -2,7 +2,7 @@ module CepService
   class Finder
     class << self
       def find_address_info_by_cep(cep_number:, update_count: true)
-        raise_error("Forneça um CEP válido", :unprocessable_entity) unless cep_number.present?
+        raise_error(I18n.t(:provide_a_valid_cep, scope: [ :error_messages ]), :unprocessable_entity) unless cep_number.present?
         normalize_cep(cep_number) unless cep_formatted?(cep_number)
         return existing_address_info(cep_number, update_count) if existing_cep_search(cep_number).present?
 
@@ -17,7 +17,7 @@ module CepService
         cep_number.insert(-4, "-") if cep_with_only_digits?(cep_number)
         return if cep_formatted?(cep_number)
 
-        raise_error("CEP inválido: #{cep_number}", :unprocessable_entity)
+        raise_error("#{I18n.t(:invalid_cep, scope: [ :error_messages ])} #{cep_number}", :unprocessable_entity)
       end
 
       def cep_formatted?(cep_number)

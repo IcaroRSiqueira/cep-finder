@@ -1,12 +1,12 @@
 <div class="cointainer mx-auto">
-  <h1 class="flex items-center justify-center font-bold text-6xl text-primary">Busca por CEP</h1>
+  <h1 class="flex items-center justify-center font-bold text-6xl text-primary"><%= t(:page_title) %></h1>
   <form action="/create" method="post" class="grid grid-flow-col gap-4 mt-10">
     <%= simple_form_for :cep do |f| %>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="relative w-full">
         <%= f.text_field :number, placeholder: "00000-000", maxlength: 9, class: "input input-bordered w-150", id: "cep_input"%>
       </div>
-      <button class="btn btn-primary w-30" id="cep_submit">Buscar</button>
+      <button class="btn btn-primary w-30" id="cep_submit"><%= t(:search_button_text) %></button>
     <% end %>
     <% if @error_message.present? %>
       <small class="text-error text-base"><%= @error_message %></small>

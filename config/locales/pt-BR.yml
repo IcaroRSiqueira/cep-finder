@@ -1,0 +1,20 @@
+pt-BR:
+  page_title: "Busca por CEP"
+  search_button_text: "Buscar"
+  no_search_performed: "Nenhuma busca realizada"
+  searched_cep_card:
+    title: "Informações do endereço:"
+    cep: "CEP:"
+    address: "Endereço:"
+    district: "Bairro:"
+    city: "Cidade:"
+    state: "Estado:"
+    ddd: "DDD:"
+  most_searched_by_state_card:
+    title: "Mais buscados por estado:"
+  most_searched_card:
+    title: "CEPs mais buscados:"
+    total: "total:"
+  error_messages:
+    provide_a_valid_cep: "Forneça um CEP válido"
+    invalid_cep: "CEP inválido:"
