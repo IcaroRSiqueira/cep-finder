@@ -5,6 +5,8 @@ Cep-Finder is a simple application with just one page that returns address infor
 This application makes external http requests to get address information using the AwesomeApi(https://docs.awesomeapi.com.br/api-cep).
 
 CEPs addresses information are immutable. To avoid executing multiple exernal requests searching for the same CEP, when provided a unsearched CEP it will fetch information from the external api and register on database(`cep_searches` table), so everytime it receives the same CEP again it wont make the external request, instead it will return stored information.
+
+WARNING: This application currently uses TailwindCSS/DaisyUI through CDN for development/testing purposes. When creating a production environment it must not use this method, a proper istallation using node modules is recommended.
 ### Stack Used
 - RubyOnRails
 - TailwindCSS with DaisyUI for styling
