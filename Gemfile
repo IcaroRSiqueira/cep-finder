@@ -7,7 +7,7 @@ gem "puma", ">= 5.0"
 gem "propshaft"
 gem "simple_form", "~> 5.3"
 gem "tailwindcss-ruby", "~> 4.0"
-gem "tailwindcss-rails", "~> 4.0"
+gem "tailwindcss-rails", "~> 4.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "kamal", require: false
 gem "thruster", require: false
